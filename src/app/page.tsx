@@ -1,18 +1,26 @@
-import { supabase } from '@/lib/supabase'
+import KPICards from '@/components/server/KPICards'
 
-export default async function Home() {
-  const { data, error } = await supabase
-    .from('orders')
-    .select('*')
-    .limit(5)
+type Period = 'week' | 'month' | 'quarter' | 'year'
 
-  console.log('Data:', data)
-  console.log('Error:', error)
+interface PageProps {
+  searchParams: { period?: string }
+}
+
+export default function DashboardPage({ searchParams }: PageProps) {
+  const period = (searchParams.period as Period) || 'month'
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold">Test</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+    <div>
+      {/* Topbar */}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-xl font-medium text-gray-900">Dashboard</h1>
+          <p className="text-xs text-gray-400 mt-0.5">Opdateret i dag</p>
+        </div>
+      </div>
+
+      {/* KPI Kort */}
+      <KPICards period={period} />
     </div>
   )
 }

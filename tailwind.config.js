@@ -20,6 +20,13 @@ module.exports = {
           amber: '#FAEEDA',
           blue: '#E6F1FB',
         },
+        kpi: {
+          purple: '#534AB7',
+          green: '#1D9E75',
+          amber: '#BA7517',
+          blue: '#378ADD',
+          red: '#D85A30',
+        },
         sidebar: '#16213E',
       },
       fontSize: {
