@@ -1,4 +1,5 @@
 import NavItem from '@/components/client/NavItem'
+import Link from 'next/link'
 
 const navItems = [
   { label: 'Dashboard', href: '/' },
@@ -18,12 +19,12 @@ export default function Sidebar() {
     <aside className="w-56 h-screen sticky top-0 bg-sidebar flex flex-col py-5 shrink-0">
       
       {/* Logo */}
-      <div className="px-5 mb-6 flex items-center gap-2">
+      <Link href="/" className="px-5 mb-6 flex items-center gap-2 hover:opacity-80 transition-opacity">
         <div className="w-7 h-7 bg-primary-light rounded-lg flex items-center justify-center text-white text-sm font-bold">
           I
         </div>
         <span className="text-white text-sm font-medium">Insight</span>
-      </div>
+      </Link>
 
       {/* Navigation */}
       <nav className="px-3 flex-1">
