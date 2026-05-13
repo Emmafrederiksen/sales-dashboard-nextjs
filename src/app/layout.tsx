@@ -23,14 +23,14 @@ export default function RootLayout({
   return (
     <html lang="da">
       <body className={`${inter.variable} font-sans bg-gray-50 text-gray-900 antialiased`}>
-        <div className="flex min-h-screen">
+        <div className="flex min-h-screen overflow-hidden">
           
           {/* Sidebar – skjult på mobil, synlig på desktop */}
           <div className="hidden lg:block">
             <Sidebar />
           </div>
           
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col min-w-0">
             {/* Mobile header – kun synlig på mobil */}
             <MobileHeader />
             

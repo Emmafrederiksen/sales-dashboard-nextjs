@@ -2,11 +2,13 @@ import { Suspense } from 'react' // Importér Suspense fra React for at håndter
 
 import KPICards from '@/components/server/KPICards'
 import FilterBar from '@/components/client/FilterBar'
+import OrdersTable from '@/components/server/OrdersTable'
+
 
 type Period = 'week' | 'month' | 'quarter' | 'year'
 
 interface PageProps {
-  searchParams: { period?: string }
+  searchParams: Promise<{ period?: string }>
 }
 
 export default async function DashboardPage({ searchParams }: PageProps) {
@@ -30,6 +32,9 @@ export default async function DashboardPage({ searchParams }: PageProps) {
 
       {/* KPI Kort */}
       <KPICards period={period} />
+
+      {/* Ordrer Tabel */}
+      <OrdersTable />
     </div>
   )
 }
