@@ -27,6 +27,8 @@ export default function OrdersSearch({ orders }: OrdersSearchProps) {
     )
   })
 
+  const displayed = search ? filtered : filtered.slice(0, 8)
+
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-4 overflow-hidden">
         {/* Header */}
@@ -34,7 +36,7 @@ export default function OrdersSearch({ orders }: OrdersSearchProps) {
         <div>
             <h2 className="text-card-title text-gray-900">Seneste ordrer</h2>
             <p className="text-xs text-gray-400 mt-0.5">
-            Viser {filtered.length} af {orders.length} transaktioner
+            Viser {displayed.length} af {orders.length} transaktioner
             </p>
         </div>
 
@@ -62,14 +64,14 @@ export default function OrdersSearch({ orders }: OrdersSearchProps) {
                 </tr>
              </thead>
              <tbody>
-                {filtered.length === 0 ? (
+                {displayed.length === 0 ? (
                 <tr>
                     <td colSpan={6} className="py-8 text-center text-xs text-gray-400">
                     Ingen ordrer matcher din søgning
                     </td>
                 </tr>
                 ) : (
-                filtered.map((order) => (
+                displayed.map((order) => (
                     <tr key={order.id} className="border-t border-gray-50">
                     <td className="py-3 text-xs text-gray-400">#{order.id}</td>
                     <td className="py-3">

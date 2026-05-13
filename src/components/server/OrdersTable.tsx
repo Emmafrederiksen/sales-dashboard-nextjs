@@ -13,7 +13,6 @@ async function getOrders() {
       products (name)
     `)
     .order('id', { ascending: false })
-    .limit(8)
 
   if (error) return null
   return data

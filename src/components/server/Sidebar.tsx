@@ -16,8 +16,9 @@ const systemItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-56 h-screen sticky top-0 bg-sidebar flex flex-col py-5 shrink-0">
-      
+
+      <aside className="hidden lg:flex w-56 bg-sidebar flex-col py-5 shrink-0 sticky top-0 h-screen overflow-y-auto">
+        
       {/* Logo */}
       <Link href="/" className="px-5 mb-6 flex items-center gap-2 hover:opacity-80 transition-opacity">
         <div className="w-7 h-7 bg-primary-light rounded-lg flex items-center justify-center text-white text-sm font-bold">
