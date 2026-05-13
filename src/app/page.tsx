@@ -3,6 +3,7 @@ import { Suspense } from 'react' // Importér Suspense fra React for at håndter
 import KPICards from '@/components/server/KPICards'
 import FilterBar from '@/components/client/FilterBar'
 import OrdersTable from '@/components/server/OrdersTable'
+import CategoryList from '@/components/client/CategoryList'
 
 
 type Period = 'week' | 'month' | 'quarter' | 'year'
@@ -32,6 +33,19 @@ export default async function DashboardPage({ searchParams }: PageProps) {
 
       {/* KPI Kort */}
       <KPICards period={period} />
+
+      {/* Graf og kategori side om side */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+        <div className="lg:col-span-2">
+          {/* RevenueChart kommer her */}
+          <div className="bg-white rounded-xl border border-gray-100 p-4 h-full">
+            <p className="text-xs text-gray-400">Graf kommer snart...</p>
+          </div>
+        </div>
+        <div>
+          <CategoryList />
+        </div>
+      </div>
 
       {/* Ordrer Tabel */}
       <OrdersTable />
