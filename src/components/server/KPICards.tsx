@@ -2,70 +2,70 @@ import { supabase } from '@/lib/supabase'
 
 type Period = 'week' | 'month' | 'quarter' | 'year'
 
-function getDateRange(period: Period) {
-  const now = new Date()
+function getDateRange(period: Period) { // Funktion til at beregne datointervallet baseret på den valgte periode
+  const now = new Date() 
   
-  switch (period) {
+  switch (period) { // Beregn datointervallet baseret på den valgte periode
     case 'week':
       return {
-        current: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7).toISOString(),
-        previous: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 14).toISOString(),
-        previousEnd: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7).toISOString(),
+        current: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7).toISOString(), // Startdato for nuværende uge
+        previous: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 14).toISOString(), // Startdato for forrige uge
+        previousEnd: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7).toISOString(), // Slutdato for forrige uge
       }
     case 'month':
       return {
-        current: new Date(now.getFullYear(), now.getMonth(), 1).toISOString(),
-        previous: new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString(),
-        previousEnd: new Date(now.getFullYear(), now.getMonth(), 0).toISOString(),
+        current: new Date(now.getFullYear(), now.getMonth(), 1).toISOString(), // Startdato for nuværende måned
+        previous: new Date(now.getFullYear(), now.getMonth() - 1, 1).toISOString(), // Startdato for forrige måned
+        previousEnd: new Date(now.getFullYear(), now.getMonth(), 0).toISOString(), // Slutdato for forrige måned
       }
     case 'quarter':
       return {
-        current: new Date(now.getFullYear(), now.getMonth() - 3, 1).toISOString(),
-        previous: new Date(now.getFullYear(), now.getMonth() - 6, 1).toISOString(),
-        previousEnd: new Date(now.getFullYear(), now.getMonth() - 3, 0).toISOString(),
+        current: new Date(now.getFullYear(), now.getMonth() - 3, 1).toISOString(), // Startdato for nuværende kvartal
+        previous: new Date(now.getFullYear(), now.getMonth() - 6, 1).toISOString(), // Startdato for forrige kvartal
+        previousEnd: new Date(now.getFullYear(), now.getMonth() - 3, 0).toISOString(), // Slutdato for forrige kvartal
       }
     case 'year':
       return {
-        current: new Date(now.getFullYear(), 0, 1).toISOString(),
-        previous: new Date(now.getFullYear() - 1, 0, 1).toISOString(),
-        previousEnd: new Date(now.getFullYear(), 0, 0).toISOString(),
+        current: new Date(now.getFullYear(), 0, 1).toISOString(), // Startdato for nuværende år
+        previous: new Date(now.getFullYear() - 1, 0, 1).toISOString(), // Startdato for forrige år
+        previousEnd: new Date(now.getFullYear(), 0, 0).toISOString(), // Slutdato for forrige år
       }
   }
 }
 
-async function getKPIData(period: Period) {
-  const range = getDateRange(period)
+async function getKPIData(period: Period) { // Funktion til at hente KPI-data baseret på den valgte periode
+  const range = getDateRange(period) // Hent ordrer for den nuværende periode
 
   const { data: currentOrders } = await supabase
     .from('orders')
     .select('amount, customer_id')
     .gte('created_at', range.current)
 
-  const { data: lastOrders } = await supabase
+  const { data: lastOrders } = await supabase 
     .from('orders')
     .select('amount, customer_id')
-    .gte('created_at', range.previous)
+    .gte('created_at', range.previous) 
     .lte('created_at', range.previousEnd)
 
   if (!currentOrders || !lastOrders) return null
 
-  const totalRevenue = currentOrders.reduce((sum, o) => sum + o.amount, 0)
+  const totalRevenue = currentOrders.reduce((sum, o) => sum + o.amount, 0) 
   const totalOrders = currentOrders.length
   const uniqueCustomers = new Set(currentOrders.map(o => o.customer_id)).size
   const avgOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0
 
   const lastRevenue = lastOrders.reduce((sum, o) => sum + o.amount, 0)
-  const lastTotalOrders = lastOrders.length
+  const lastTotalOrders = lastOrders.length 
   const lastCustomers = new Set(lastOrders.map(o => o.customer_id)).size
   const lastAvg = lastTotalOrders > 0 ? lastRevenue / lastTotalOrders : 0
 
-  const calcChange = (current: number, last: number) => {
+  const calcChange = (current: number, last: number) => { // Funktion til at beregne procentvis ændring mellem nuværende og forrige periode
     if (last === 0) return '+0%'
     const change = ((current - last) / last) * 100
     return `${change >= 0 ? '+' : ''}${Math.round(change)}%`
   }
 
-  const isPositive = (current: number, last: number) => current >= last
+  const isPositive = (current: number, last: number) => current >= last // Funktion til at bestemme om ændringen er positiv eller negativ
 
   return {
     totalRevenue,
@@ -82,10 +82,10 @@ async function getKPIData(period: Period) {
 }
 
 interface KPICardsProps {
-  period: Period
+  period: Period // KPICards forventer at få en period prop, som angiver hvilken periode der skal vises data for
 }
 
-export default async function KPICards({ period }: KPICardsProps) {
+export default async function KPICards({ period }: KPICardsProps) { // Hovedkomponenten for KPI-kortene, som henter data og viser dem i kortformat
   const data = await getKPIData(period)
 
   if (!data) return null
@@ -97,7 +97,7 @@ export default async function KPICards({ period }: KPICardsProps) {
     'bg-kpi-blue',
   ]
 
-  const cards = [
+  const cards = [ // Definer kortdata baseret på de hentede KPI-data, inklusive label, værdi, ændring og om det er et fremhævet kort
     {
       label: 'Omsætning',
       value: `${data.totalRevenue.toLocaleString('da-DK')} kr`,

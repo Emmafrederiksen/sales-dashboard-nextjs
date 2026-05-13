@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation' // Importer usePathname for at få den aktuelle sti i klientkomponenten
 
-interface NavItemProps {
+interface NavItemProps { 
   href: string
   label: string
 }

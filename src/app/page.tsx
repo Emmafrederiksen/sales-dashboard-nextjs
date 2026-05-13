@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense } from 'react' // Importér Suspense fra React for at håndtere asynkrone komponenter
 
 import KPICards from '@/components/server/KPICards'
 import FilterBar from '@/components/client/FilterBar'
