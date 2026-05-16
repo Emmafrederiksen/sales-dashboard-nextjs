@@ -165,6 +165,12 @@ SSR er standard i Next.js App Router – ingen manuel konfiguration af Express s
 
 ---
 
+## Live demo
+
+🔗 https://sales-dashboard-nextjs-eta.vercel.app/
+
+---
+
 ## Udviklet af
 
 Emma Øhlers Frederiksen  
