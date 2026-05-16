@@ -22,7 +22,7 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   return (
     <div>
       {/* Topbar */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
         <div>
           <h1 className="text-xl font-medium text-gray-900">Dashboard</h1>
           <p className="text-xs text-gray-400 mt-0.5">Opdateret i dag</p>
