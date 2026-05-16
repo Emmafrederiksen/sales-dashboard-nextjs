@@ -43,7 +43,7 @@ Projektet er én af to prototyper der sammenlignes i synopsen:
 
 ## Arkitektur – Server vs Client Components
 
-Et centralt fokus i dette projekt er den bevidste opdeling af komponenter:
+Et centralt fokus i dette projekt er opdelingen af komponenter:
 
 ### Server Components (SSR)
 Renderes på serveren. Data hentes direkte fra Supabase uden at API-nøgler eksponeres i browseren.
@@ -78,7 +78,7 @@ sales-dashboard-nextjs/
 │   ├── app/
 │   │   ├── layout.tsx          – Root layout med Sidebar og MobileHeader
 │   │   ├── page.tsx            – Dashboard side
-│   │   └── globals.css         – Global CSS med Tailwind directives
+│   │   └── globals.css         – Global CSS med Tailwind direktiver
 │   ├── components/
 │   │   ├── server/             – Server Components
 │   │   └── client/             – Client Components
@@ -167,7 +167,7 @@ SSR er standard i Next.js App Router – ingen manuel konfiguration af Express s
 
 ## Udviklet af
 
-Emma Frederiksen  
-PBA Web Development, 7. semester  
+Emma Øhlers Frederiksen  
+PBA Web Development, 6. semester  
 Zealand – Sjællands Erhvervsakademi  
 Forår 2026
